@@ -1,11 +1,23 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { useSearchParams } from "react-router-dom"
+
 import products from "../data/products"
 import ProductCard from "../components/ProductCard"
 
 export default function Products() {
-  const [query, setQuery] = useState("")
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const urlQ = searchParams.get("q") || ""
+  const [query, setQuery] = useState(urlQ)
   const [category, setCategory] = useState("All")
   const [sort, setSort] = useState("featured") // featured | price-asc | price-desc | name-asc | name-desc
+
+  // Keep query state synced if user navigates back/forward or arrives from Navbar search
+  useEffect(() => {
+    const nextQ = searchParams.get("q") || ""
+    if (nextQ !== query) setQuery(nextQ)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams])
 
   const categories = useMemo(() => {
     const set = new Set(products.map((p) => p.category))
@@ -23,11 +35,9 @@ export default function Products() {
         p.description.toLowerCase().includes(q)
 
       const matchesCategory = category === "All" || p.category === category
-
       return matchesQuery && matchesCategory
     })
 
-    // Sorting
     if (sort === "price-asc") list = [...list].sort((a, b) => a.price - b.price)
     if (sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price)
     if (sort === "name-asc") list = [...list].sort((a, b) => a.name.localeCompare(b.name))
@@ -35,6 +45,14 @@ export default function Products() {
 
     return list
   }, [query, category, sort])
+
+  const updateUrlQ = (value: string) => {
+    const next = new URLSearchParams(searchParams)
+    const v = value.trim()
+    if (v) next.set("q", value) // keep user's exact typing (spaces etc.)
+    else next.delete("q")
+    setSearchParams(next, { replace: true })
+  }
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
@@ -57,7 +75,11 @@ export default function Products() {
           <label className="text-sm font-medium text-gray-700">Search</label>
           <input
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              const v = e.target.value
+              setQuery(v)
+              updateUrlQ(v)
+            }}
             placeholder="Search products..."
             className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-gray-900/20"
           />
@@ -108,6 +130,7 @@ export default function Products() {
               setQuery("")
               setCategory("All")
               setSort("featured")
+              updateUrlQ("")
             }}
             className="mt-4 rounded-lg bg-gray-900 text-white px-4 py-2 text-sm font-medium hover:bg-black"
           >
