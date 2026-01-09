@@ -1,9 +1,11 @@
 import { Link, useParams } from "react-router-dom"
 import products from "../data/products"
+import { useCart } from "../context/CartContext"
 
 export default function ProductDetails() {
   const { id } = useParams()
   const product = products.find((p) => p.id === id)
+  const { addToCart } = useCart()
 
   if (!product) {
     return (
@@ -45,7 +47,7 @@ export default function ProductDetails() {
 
           <button
             className="mt-6 w-full md:w-auto rounded-lg bg-gray-900 text-white px-6 py-3 text-sm font-medium hover:bg-black"
-            onClick={() => alert("Cart coming in Lesson 3")}
+            onClick={() => addToCart(product)}
           >
             Add to Cart
           </button>
