@@ -12,7 +12,7 @@ export default function Success() {
         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             to="/orders"
-            className="rounded-lg bg-gray-900 text-white px-6 py-3 text-sm font-medium hover:bg-black"
+            className="rounded-lg bg-[color:var(--primary)] text-white px-6 py-3 text-sm font-medium hover:bg-[color:var(--primary-dark)]"
           >
             View Orders
           </Link>
@@ -28,3 +28,4 @@ export default function Success() {
     </section>
   )
 }
+

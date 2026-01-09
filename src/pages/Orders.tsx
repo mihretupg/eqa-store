@@ -25,7 +25,7 @@ const Orders = () => {
 
         <Link
           to="/products"
-          className="inline-block mt-4 rounded-lg bg-gray-900 text-white px-4 py-2 text-sm font-medium hover:bg-black"
+          className="inline-block mt-4 rounded-lg bg-[color:var(--primary)] text-white px-4 py-2 text-sm font-medium hover:bg-[color:var(--primary-dark)]"
         >
           Shop products
         </Link>
@@ -104,5 +104,6 @@ const Orders = () => {
 }
 
 export default Orders
+
 
 

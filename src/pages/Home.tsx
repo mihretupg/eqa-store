@@ -1,11 +1,14 @@
 import products from "../data/products"
 import ProductCard from "../components/ProductCard"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 export default function Home() {
   const deals = products.slice(0, 4)
   const picks = products.slice(2, 6)
   const heroProduct = products[1]
+  const [term, setTerm] = useState("")
+  const navigate = useNavigate()
   const departments = [
     {
       title: "Style refresh",
@@ -31,38 +34,47 @@ export default function Home() {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-amber-50 via-white to-slate-50">
-      <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-amber-200/40 blur-3xl" />
-      <div className="pointer-events-none absolute top-32 -left-24 h-72 w-72 rounded-full bg-sky-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-[color:var(--secondary)]/30 blur-3xl" />
+      <div className="pointer-events-none absolute top-32 -left-24 h-72 w-72 rounded-full bg-[color:var(--primary)]/30 blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-10">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] items-center">
-          <div className="rounded-3xl border border-amber-100 bg-white/90 p-6 shadow-sm backdrop-blur animate-fade-up">
-            <div className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-900">
+          <div className="rounded-3xl border border-[color:var(--secondary-soft)] bg-white/90 p-6 shadow-sm backdrop-blur animate-fade-up">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[color:var(--secondary-soft)] px-3 py-1 text-xs font-semibold text-[color:var(--secondary-dark)]">
               Prime Day Preview
             </div>
             <h1 className="mt-4 text-4xl sm:text-5xl font-bold text-[color:var(--ink)]">
               Big deals, fast delivery, and a storefront made for speed.
             </h1>
             <p className="mt-4 text-base text-slate-600 max-w-xl">
-              Shop the newest drops with Amazon-style ease. Quick filters, fast add to
+              Shop the newest drops with ease. Quick filters, fast add to
               cart, and essentials picked for you.
             </p>
 
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+            <form
+              className="mt-6 flex flex-col sm:flex-row gap-3"
+              onSubmit={(e) => {
+                e.preventDefault()
+                const q = term.trim()
+                navigate(q ? `/products?q=${encodeURIComponent(q)}` : "/products")
+              }}
+            >
               <div className="flex-1 rounded-xl border bg-white px-4 py-3 shadow-sm">
                 <input
+                  value={term}
+                  onChange={(e) => setTerm(e.target.value)}
                   className="w-full text-sm text-slate-700 outline-none placeholder:text-slate-400"
                   placeholder="Search products, brands, and more"
                   aria-label="Search products"
                 />
               </div>
-              <Link
-                to="/products"
-                className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-black"
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center rounded-xl bg-[color:var(--primary)] px-5 py-3 text-sm font-semibold text-white hover:bg-[color:var(--primary-dark)]"
               >
                 Search
-              </Link>
-            </div>
+              </button>
+            </form>
 
             <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold text-slate-700">
               {["Trending", "Fast Shipping", "Top Rated", "Under $50"].map(
@@ -80,16 +92,20 @@ export default function Home() {
 
           <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm animate-fade-up delay-1">
             <div className="flex items-center justify-between text-xs text-slate-500">
-              <span className="font-semibold text-amber-600">Deal of the day</span>
+              <span className="font-semibold text-[color:var(--secondary)]">Deal of the day</span>
               <span>Ends in 06:42:19</span>
             </div>
-            <div className="mt-4 overflow-hidden rounded-2xl">
+            <Link
+              to={`/products/${heroProduct.id}`}
+              className="group mt-4 block overflow-hidden rounded-2xl"
+              aria-label={`View ${heroProduct.name}`}
+            >
               <img
                 src={heroProduct.image}
                 alt={heroProduct.name}
-                className="h-56 w-full object-cover"
+                className="h-50 w-full object-cover transition duration-300 group-hover:scale-[1.05]"
               />
-            </div>
+            </Link>
             <h2 className="mt-4 text-xl font-semibold text-slate-900">
               {heroProduct.name}
             </h2>
@@ -131,7 +147,7 @@ export default function Home() {
                 {dept.title}
               </h3>
               <p className="mt-1 text-sm text-slate-500">{dept.subtitle}</p>
-              <span className="mt-3 inline-flex text-sm font-semibold text-amber-700">
+              <span className="mt-3 inline-flex text-sm font-semibold text-[color:var(--secondary)]">
                 Shop now
               </span>
             </Link>
@@ -145,7 +161,7 @@ export default function Home() {
               Limited-time offers with extra savings.
             </p>
           </div>
-          <Link to="/products" className="text-sm font-semibold text-amber-700 hover:underline">
+          <Link to="/products" className="text-sm font-semibold text-[color:var(--secondary)] hover:underline">
             See all deals
           </Link>
         </div>
@@ -168,7 +184,7 @@ export default function Home() {
           <div className="mt-4 flex gap-3 md:mt-0">
             <Link
               to="/products"
-              className="rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-black"
+              className="rounded-xl bg-[color:var(--primary)] px-5 py-3 text-sm font-semibold text-white hover:bg-[color:var(--primary-dark)]"
             >
               Start shopping
             </Link>
@@ -188,7 +204,7 @@ export default function Home() {
               Picks based on what's trending this week.
             </p>
           </div>
-          <Link to="/products" className="text-sm font-semibold text-amber-700 hover:underline">
+          <Link to="/products" className="text-sm font-semibold text-[color:var(--secondary)] hover:underline">
             View more
           </Link>
         </div>

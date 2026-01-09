@@ -29,7 +29,7 @@ export default function Cart() {
         <p className="text-gray-600 mt-2">Your cart is empty.</p>
         <Link
           to="/products"
-          className="inline-block mt-4 rounded-lg bg-gray-900 text-white px-4 py-2 text-sm font-medium hover:bg-black"
+          className="inline-block mt-4 rounded-lg bg-[color:var(--primary)] text-white px-4 py-2 text-sm font-medium hover:bg-[color:var(--primary-dark)]"
         >
           Browse products
         </Link>
@@ -137,7 +137,7 @@ export default function Cart() {
 
           <Link
             to="/checkout"
-            className="mt-5 block w-full text-center rounded-lg bg-gray-900 text-white py-3 text-sm font-medium hover:bg-black"
+            className="mt-5 block w-full text-center rounded-lg bg-[color:var(--primary)] text-white py-3 text-sm font-medium hover:bg-[color:var(--primary-dark)]"
           >
             Continue to Checkout
           </Link>

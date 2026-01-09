@@ -81,7 +81,7 @@ export default function Products() {
               updateUrlQ(v)
             }}
             placeholder="Search products..."
-            className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-gray-900/20"
+            className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[color:var(--primary)]/20"
           />
         </div>
 
@@ -91,7 +91,7 @@ export default function Products() {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-gray-900/20 bg-white"
+            className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[color:var(--primary)]/20 bg-white"
           >
             {categories.map((c) => (
               <option key={c} value={c}>
@@ -107,7 +107,7 @@ export default function Products() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-gray-900/20 bg-white"
+            className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[color:var(--primary)]/20 bg-white"
           >
             <option value="featured">Featured (default)</option>
             <option value="price-asc">Price: Low → High</option>
@@ -132,7 +132,7 @@ export default function Products() {
               setSort("featured")
               updateUrlQ("")
             }}
-            className="mt-4 rounded-lg bg-gray-900 text-white px-4 py-2 text-sm font-medium hover:bg-black"
+            className="mt-4 rounded-lg bg-[color:var(--primary)] text-white px-4 py-2 text-sm font-medium hover:bg-[color:var(--primary-dark)]"
           >
             Reset filters
           </button>
@@ -147,3 +147,4 @@ export default function Products() {
     </section>
   )
 }
+

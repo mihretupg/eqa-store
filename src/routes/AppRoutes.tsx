@@ -8,6 +8,12 @@ import Cart from "../pages/Cart"
 import Checkout from "../pages/Checkout"
 import Success from "../pages/Success"
 import Orders from "../pages/Orders"
+import Deals from "../pages/Deals"
+import Categories from "../pages/Categories"
+import NewArrivals from "../pages/NewArrivals"
+import BestSellers from "../pages/BestSellers"
+import Support from "../pages/Support"
+import Account from "../pages/Account"
 import NotFound from "../pages/NotFound"
 
 export default function AppRoutes() {
@@ -19,6 +25,12 @@ export default function AppRoutes() {
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/deals" element={<Deals />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/new-arrivals" element={<NewArrivals />} />
+        <Route path="/best-sellers" element={<BestSellers />} />
+        <Route path="/support" element={<Support />} />
+        <Route path="/account" element={<Account />} />
 
         {/* Lesson 9 */}
         <Route path="/success" element={<Success />} />
@@ -29,3 +41,4 @@ export default function AppRoutes() {
     </Routes>
   )
 }
+

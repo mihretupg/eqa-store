@@ -66,7 +66,7 @@ export default function Checkout() {
   }
 
   const inputClass = (key: string) =>
-    `w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-gray-900/20 ${
+    `w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[color:var(--primary)]/20 ${
       fieldError(key) ? "border-red-400" : "border-gray-200"
     }`
 
@@ -122,7 +122,7 @@ export default function Checkout() {
         <p className="text-gray-600 mt-2">Your cart is empty.</p>
         <Link
           to="/products"
-          className="inline-block mt-4 rounded-lg bg-gray-900 text-white px-4 py-2 text-sm font-medium hover:bg-black"
+          className="inline-block mt-4 rounded-lg bg-[color:var(--primary)] text-white px-4 py-2 text-sm font-medium hover:bg-[color:var(--primary-dark)]"
         >
           Browse products
         </Link>
@@ -140,7 +140,7 @@ export default function Checkout() {
           </p>
         </div>
 
-        <Link to="/cart" className="text-sm text-blue-600 hover:underline">
+        <Link to="/cart" className="text-sm text-[color:var(--primary)] hover:underline">
           ← Back to cart
         </Link>
       </div>
@@ -227,7 +227,7 @@ export default function Checkout() {
                   Note (optional)
                 </label>
                 <textarea
-                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-gray-900/20 min-h-[100px]"
+                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[color:var(--primary)]/20 min-h-[100px]"
                   value={form.note}
                   onChange={(e) => update("note", e.target.value)}
                   placeholder="Delivery instructions..."
@@ -237,7 +237,7 @@ export default function Checkout() {
 
             <button
               type="submit"
-              className="mt-6 w-full sm:w-auto rounded-lg bg-gray-900 text-white px-6 py-3 text-sm font-medium hover:bg-black"
+              className="mt-6 w-full sm:w-auto rounded-lg bg-[color:var(--primary)] text-white px-6 py-3 text-sm font-medium hover:bg-[color:var(--primary-dark)]"
             >
               Place Order
             </button>
@@ -283,4 +283,5 @@ export default function Checkout() {
     </section>
   )
 }
+
 
