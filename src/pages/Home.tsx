@@ -1,7 +1,7 @@
 import products from "../data/products"
 import ProductCard from "../components/ProductCard"
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Home() {
   const deals = products.slice(0, 4)
@@ -32,14 +32,41 @@ export default function Home() {
     },
   ]
 
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const elements = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-reveal]")
+    )
+
+    if (reduceMotion) {
+      elements.forEach((el) => el.classList.add("is-visible"))
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible")
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
+    )
+
+    elements.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-amber-50 via-white to-slate-50">
-      <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-[color:var(--secondary)]/30 blur-3xl" />
-      <div className="pointer-events-none absolute top-32 -left-24 h-72 w-72 rounded-full bg-[color:var(--primary)]/30 blur-3xl" />
+      <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-[color:var(--secondary)]/30 blur-3xl blob-float" />
+      <div className="pointer-events-none absolute top-32 -left-24 h-72 w-72 rounded-full bg-[color:var(--primary)]/30 blur-3xl blob-float delay-blob" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-10">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] items-center">
-          <div className="rounded-3xl border border-[color:var(--secondary-soft)] bg-white/90 p-6 shadow-sm backdrop-blur animate-fade-up">
+          <div className="rounded-3xl border border-[color:var(--secondary-soft)] bg-white/90 p-6 shadow-sm backdrop-blur reveal" data-reveal>
             <div className="inline-flex items-center gap-2 rounded-full bg-[color:var(--secondary-soft)] px-3 py-1 text-xs font-semibold text-[color:var(--secondary-dark)]">
               Prime Day Preview
             </div>
@@ -90,7 +117,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm animate-fade-up delay-1">
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm reveal" data-reveal>
             <div className="flex items-center justify-between text-xs text-slate-500">
               <span className="font-semibold text-[color:var(--secondary)]">Deal of the day</span>
               <span>Ends in 06:42:19</span>
@@ -129,7 +156,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 animate-fade-up delay-2">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 reveal" data-reveal>
           {departments.map((dept) => (
             <Link
               key={dept.title}
@@ -154,7 +181,7 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="mt-12 flex items-end justify-between animate-fade-up delay-2">
+        <div className="mt-12 flex items-end justify-between reveal" data-reveal>
           <div>
             <h2 className="text-2xl font-bold text-slate-900">Today's deals</h2>
             <p className="mt-1 text-sm text-slate-500">
@@ -166,13 +193,13 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 animate-fade-up delay-3">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 reveal" data-reveal>
           {deals.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
         </div>
 
-        <div className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex md:items-center md:justify-between animate-fade-up delay-3">
+        <div className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex md:items-center md:justify-between reveal" data-reveal>
           <div>
             <h2 className="text-2xl font-bold text-slate-900">
               Delivery in days, not weeks
@@ -197,7 +224,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-12 flex items-end justify-between animate-fade-up delay-3">
+        <div className="mt-12 flex items-end justify-between reveal" data-reveal>
           <div>
             <h2 className="text-2xl font-bold text-slate-900">Recommended for you</h2>
             <p className="mt-1 text-sm text-slate-500">
@@ -209,7 +236,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 animate-fade-up delay-4">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 reveal" data-reveal>
           {picks.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
