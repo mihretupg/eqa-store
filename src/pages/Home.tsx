@@ -117,9 +117,11 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm reveal" data-reveal>
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm reveal deal-card" data-reveal>
             <div className="flex items-center justify-between text-xs text-slate-500">
-              <span className="font-semibold text-[color:var(--secondary)]">Deal of the day</span>
+              <span className="font-semibold text-[color:var(--secondary)] deal-badge rounded-full px-3 py-1 bg-[color:var(--secondary-soft)]">
+                Deal of the day
+              </span>
               <span>Ends in 06:42:19</span>
             </div>
             <Link

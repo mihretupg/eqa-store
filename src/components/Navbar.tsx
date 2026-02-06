@@ -30,28 +30,45 @@ export default function Navbar() {
 
   return (
     <header className="bg-white sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-        <Link
-          to="/"
-          className="flex items-center gap-2 text-xl font-bold whitespace-nowrap"
-          onClick={closeMenu}
-        >
-          <img src="/logo.png" alt="Eqa" className="h-[150px] w-auto" />
+      <div className="w-full bg-slate-900 text-white text-xs sm:text-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-center">
+          <Link
+            to="/products"
+            className="group inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-semibold tracking-wide text-white transition hover:bg-white/20"
+            onClick={closeMenu}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="h-4 w-4 text-[color:var(--secondary)]"
+              aria-hidden="true"
+            >
+              <path d="M11 3a3 3 0 0 0-3 3v1H6a2 2 0 0 0-2 2v3h7V7h2v5h7V9a2 2 0 0 0-2-2h-2V6a3 3 0 0 0-3-3h-2Zm-3 5h8V6a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v2Z" />
+              <path d="M4 13v6a2 2 0 0 0 2 2h5v-8H4Zm9 8h5a2 2 0 0 0 2-2v-6h-7v8Z" />
+            </svg>
+            Valentine's Day: 40% off select gifts
+          </Link>
+          <span className="opacity-80">Free shipping over $50</span>
+          <span className="opacity-80">Fast delivery, easy returns</span>
+        </div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-0 pb-0 sm:pt-0 sm:pb-0">
+        <div className="flex items-center justify-between gap-3 -mt-2 sm:mt-0">
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-xl font-bold whitespace-nowrap"
+            onClick={closeMenu}
+          >
+            <img
+              src="/logo.png"
+              alt="Eqa"
+              className="h-[180px] w-auto sm:h-[200px]"
+            />
+          </Link>
 
-            </Link>
-
-        {/* Search (desktop) */}
-        <form onSubmit={submitSearch} className="hidden md:flex flex-1 max-w-md mx-4">
-          <input
-            value={term}
-            onChange={(e) => setTerm(e.target.value)}
-            placeholder="Search products..."
-            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[color:var(--primary)]/20"
-          />
-        </form>
-
-        {/* Desktop nav */}
-        <nav className="hidden sm:flex items-center gap-2">
+          {/* Desktop nav */}
+          <nav className="hidden sm:flex items-center gap-2">
           <NavLink to="/" className={navClass} end>
             Home
           </NavLink>
@@ -140,6 +157,17 @@ export default function Navbar() {
             </svg>
           )}
         </button>
+        </div>
+
+        {/* Search (desktop) */}
+        <form onSubmit={submitSearch} className="hidden md:flex mt-2">
+          <input
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
+            placeholder="Search products..."
+            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[color:var(--primary)]/20"
+          />
+        </form>
       </div>
 
       {/* Mobile dropdown */}
